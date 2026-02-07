@@ -1,1 +1,188 @@
-this is val repo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will you be my Valentine? ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffdde1 0%, #ee9ca7 40%, #ff758c 100%);
+      color: #2c003e;
+    }
+
+    .card {
+      background: #fff;
+      padding: 32px 28px 36px;
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "❤️";
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.08;
+      top: -10px;
+      left: -4px;
+    }
+
+    .card::after {
+      content: "💌";
+      position: absolute;
+      font-size: 70px;
+      opacity: 0.08;
+      bottom: -16px;
+      right: 8px;
+    }
+
+    .heart {
+      font-size: 42px;
+      margin-bottom: 10px;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.15); }
+      40%  { transform: scale(1); }
+      60%  { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    p.subtitle {
+      font-size: 14px;
+      margin-bottom: 22px;
+      color: #6b556b;
+    }
+
+    #questionText {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 26px;
+      color: #3b003b;
+      min-height: 48px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    button {
+      border: none;
+      padding: 10px 22px;
+      font-size: 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #yesBtn {
+      background: linear-gradient(135deg, #ff4b88, #ff7a9e);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(255, 75, 136, 0.35);
+    }
+
+    #yesBtn:hover {
+      transform: translateY(-1px) scale(1.03);
+      box-shadow: 0 10px 22px rgba(255, 75, 136, 0.45);
+    }
+
+    #noBtn {
+      background: #f3e7ff;
+      color: #5a3d7a;
+      border: 1px solid #e0c8ff;
+    }
+
+    #noBtn:hover {
+      background: #eadbff;
+      transform: translateY(-1px);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 11px;
+      color: #93749b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="heart">💖</div>
+    <h1>Hey you…</h1>
+    <p class="subtitle">I have a very important question 👀</p>
+
+    <div id="questionText">Will you be my Valentine?</div>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <p class="footer-note">Spoiler: saying “No” might be… difficult 😏</p>
+  </div>
+
+  <script>
+    const questionText = document.getElementById("questionText");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+
+    const questions = [
+      "Will you be my Valentine? 💘",
+      "Are you *sure* you don’t want to be my Valentine? 😼",
+      "Think again… we’d be a cute duo, right? 💑",
+      "Last chance to make the best decision of your life 👇",
+      "Plot twist: the correct answer has always been YES 💖",
+      "Okay now this is getting serious… say yes already 😤",
+      "My heart’s in a while(true) loop until you press Yes 🫠"
+    ];
+
+    let noClickCount = 0;
+
+    yesBtn.addEventListener("click", () => {
+      alert("I KNEW you’d say yes! 💖\n\nNow you’re officially my Valentine 😌✨");
+    });
+
+    noBtn.addEventListener("click", () => {
+      noClickCount++;
+
+      const index = noClickCount % questions.length;
+      questionText.textContent = questions[index];
+
+      // Make Yes button slightly bigger & No slightly smaller over time (fun effect)
+      const yesScale = 1 + Math.min(noClickCount * 0.08, 0.8); // max 1.8x
+      const noScale  = 1 - Math.min(noClickCount * 0.05, 0.6); // min 0.4x
+
+      yesBtn.style.transform = `scale(${yesScale})`;
+      noBtn.style.transform  = `scale(${noScale})`;
+
+      // Optional: change No button text for extra fun
+      const noTexts = ["No 🙈", "Still no? 😳", "Really? 😢", "Have a heart 💔", "Try pressing Yes 😇"];
+      noBtn.textContent = noTexts[noClickCount % noTexts.length];
+    });
+  </script>
+</body>
+</html>
+
